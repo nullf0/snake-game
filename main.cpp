@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include "voxel.h"
 #include "vec.h"
+#include "bgl2.h"
 
 int delta = 100;
 int defaultsnakestrength = 2;
@@ -67,13 +68,13 @@ void drawsqrline(int*voxel, vec start, vec end, vec size)
 }
 void instantupdate()
 {
-    if(kbhit())
+    if(_kbhit())
     {
-        key = getch();
+        key = _getch();
         if(key == 'x')
         {
             printf("Do you want to quit? [y/n]\n");
-            scanf("%1s", &key);
+            scanf_s("%1s", &key);
             if(key == 'y')
             {
                 quit = 1;
@@ -129,14 +130,13 @@ void update()
     voxel[food.x + food.y * size.x] = snakestrength;
     setvoxeldata(voxel, size, txt);
     setfood(size, food, txt);
-    system("cls");
-    printf("%s", txt);
+    draw();
     printf("Score: %d\n", score);
     printf("\nPress x to quit\n");
     if(lost)
     {
         printf("\nGame Over!\nTry again? [y/n]\n");
-        scanf("%1s", &key);
+        scanf_s("%1s", &key);
         if(key == 'n')
         {
             quit = 1;
